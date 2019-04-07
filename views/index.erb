@@ -2,9 +2,16 @@
 <br />
 
 <% @results.each do |post| %>
+
+<p>
+	<%= post['youname'] %>
+	<br />
+</p>
+
 <p>
 	<%= post['content'] %>
 	<br />
+
 	<br />
 	Addet at <%= post['created_date'] %>
 <br />

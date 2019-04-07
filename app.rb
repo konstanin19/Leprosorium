@@ -16,15 +16,16 @@ end
 configure do
 	init_db
 	@db.execute 'CREATE TABLE IF NOT EXISTS Posts
-	 (
-	 id INTEGER PRIMARY KEY AUTOINCREMENT,
-	 created_date DATE,
-	 content TEXT
-	 )'
+	(
+	Id INTEGER PRIMARY KEY AUTOINCREMENT,
+	youname TEXT, 
+	created_date DATE, 
+	content TEXT
+	)'
 
 	 @db.execute 'CREATE TABLE IF NOT EXISTS Comments
 	 (
-	 id INTEGER PRIMARY KEY AUTOINCREMENT,
+	 Id INTEGER PRIMARY KEY AUTOINCREMENT,
 	 created_date DATE,
 	 content TEXT,
 	 post_id INTEGER
@@ -44,14 +45,21 @@ end
 
 post '/new' do
 	content = params[:content]
+	youname = params[:youname]
 	if content.length <= 0
 		@error = 'Type post text'
 		return erb :new
 	end
-	@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
-	
+
+	if youname.length <= 0
+		@error = 'Type you name'
+		return erb :new
+	end
+
+	#@db.execute 'insert into Posts (youname, content, created_date) values (?, datetime())', [content]
+	@db.execute 'insert into Posts (youname, content, created_date) values (?,?,datetime())',[youname, content]
 	redirect to '/'
-	#erb "You typed: #{content}"
+	#erb "You typed: #{youname}, #{content}"
 end
 
 get '/details/:post_id' do
