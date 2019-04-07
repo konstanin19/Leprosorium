@@ -26,6 +26,7 @@ configure do
 	 @db.execute 'CREATE TABLE IF NOT EXISTS Comments
 	 (
 	 Id INTEGER PRIMARY KEY AUTOINCREMENT,
+	 youname TEXT,
 	 created_date DATE,
 	 content TEXT,
 	 post_id INTEGER
@@ -56,7 +57,6 @@ post '/new' do
 		return erb :new
 	end
 
-	#@db.execute 'insert into Posts (youname, content, created_date) values (?, datetime())', [content]
 	@db.execute 'insert into Posts (youname, content, created_date) values (?,?,datetime())',[youname, content]
 	redirect to '/'
 	#erb "You typed: #{youname}, #{content}"
@@ -65,10 +65,10 @@ end
 get '/details/:post_id' do
 	post_id = params[:post_id]
 
-	results = @db.execute 'select * from Posts where id = ?', [post_id]
+	results = @db.execute 'select * from Posts where Id = ?', [post_id]
 	@row = results[0]
 
-	@comments = @db.execute 'select * from Comments where post_id = ? order by id', [post_id]
+	@comments = @db.execute 'select * from Comments where post_id = ? order by Id', [post_id]
 	erb :details
 end
 

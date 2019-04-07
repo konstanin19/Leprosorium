@@ -1,6 +1,11 @@
 <h4>Post details:</h4>
 <p>
+
 	<br />
+	<%= @row['youname'] %>
+	<br />
+	<br />
+
 	<%= @row['content'] %>
 	<br />
 	<br />
@@ -13,12 +18,12 @@
 		<%= comment['content'] %>
 		<br />
 		<br />
-		<span style="font-size: 75%; color: #999">Addet at <%= comment['created_date'] %></span>>
+		<span style="font-size: 75%; color: #111">Addet at <%= comment['created_date'] %></span>>
 	</p>
 	<hr />
 <% end %>
 <p>
-	<form action="/details/<%= @row['id'] %>" method="POST"role="form">
+	<form action="/details/<%= @row['Id'] %>" method="POST"role="form">
 		<textarea name="content" class="form-control" rows="6" placeholder="Type comment text here"></textarea>
   <br />
         <button type="submit" class="btn btn-primary">Add comment</button>
